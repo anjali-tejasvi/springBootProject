@@ -1,5 +1,8 @@
 # 📘 Microservices Fitness Application – Full Stack Project (Spring Boot + React + AI)
 
+<img width="1266" height="572" alt="image" src="https://github.com/user-attachments/assets/0f14e620-70f2-486e-a13f-97cb1c7e4332" />
+
+
 This project is a **Full Stack Microservices-based Fitness Application** built using:
 
 - **Spring Boot**
