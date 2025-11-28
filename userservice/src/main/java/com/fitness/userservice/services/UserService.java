@@ -24,17 +24,22 @@ public class UserService {
 
         System.out.println("------calling user service----");
         if(userRepository.existsByEmail(request.getEmail())){
-            Map<String, Object> response = new HashMap<>();
-            response.put("success", false);
-            response.put("message", "User already exists");
-
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(response);
+            User existingUser = userRepository.findByEmail(request.getEmail());
+            UserResponse userResponse = new UserResponse();
+            userResponse.setId(existingUser.getId());
+            userResponse.setEmail(existingUser.getEmail());
+            userResponse.setKeycloakId(existingUser.getKeycloakId());
+            userResponse.setPassword(existingUser.getPassword());
+            userResponse.setFirstName(existingUser.getFirstName());
+            userResponse.setLastName(existingUser.getLastName());
+            userResponse.setCreatedAt(existingUser.getCreatedAt());
+            userResponse.setUpdatedAt(existingUser.getUpdatedAt());
         }
         
         User user=  new User();
         user.setEmail(request.getEmail());
         user.setFirstName(request.getFirstName());
+        user.setKeycloakId(request.getKeycloakId());
         user.setLastName(request.getLastName());
         user.setPassword(request.getPassword());
 
@@ -44,6 +49,7 @@ public class UserService {
         UserResponse userResponse = new UserResponse();
         userResponse.setId(savedUser.getId());
         userResponse.setEmail(savedUser.getEmail());
+        userResponse.setKeycloakId(savedUser.getKeycloakId());
         userResponse.setPassword(savedUser.getPassword());
         userResponse.setFirstName(savedUser.getFirstName());
         userResponse.setLastName(savedUser.getLastName());
@@ -75,6 +81,7 @@ public class UserService {
     }
 
     public Boolean existByUserId(String userId) {
-        return  userRepository.existsById(userId);
+//        return  userRepository.existsById(userId);
+        return  userRepository.existsByKeycloakId(userId);
     }
 }
